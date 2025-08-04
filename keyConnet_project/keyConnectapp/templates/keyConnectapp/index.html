@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css">
+    <title>key-connect</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <img src="logo.png" alt="Logo" class="logo">
+            <ul>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'Blog' %}">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Hero Section with Videos -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-video1">
+                    <video autoplay muted loop>
+                        <source src="path/to/your/video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="hero-text">
+                        <h1>Welcome to Key Connect</h1>
+                        <p>Your gateway to secure connections.</p>
+                        <button><a href="{% url 'login' %}" class="btn">Get Started</a></button>
+                    </div>
+                </div>
+                <div class="hero-video2">
+                    <video autoplay muted loop>
+                        <source src="path/to/your/video2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="hero-text">
+                        <h1>Connect with Confidence</h1>
+                        <p>Join our community today.</p>
+                        <button><a href="{% url 'register' %}" class="btn">Sign Up</a></button>
+                    </div>
+                </div>
+                <div class="hero-video3">
+                    <video autoplay muted loop>
+                        <source src="path/to/your/video3.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="hero-text">
+                        <h1>Post your story</h1>
+                        <p>Inspire Africa with jouney , Every story change a life</p>
+                        <button><a href="{% url 'Blog' %}" class="btn">Learn More</a></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Features Section -->
+        <section class="features">
+            <h2>Our featured Free Sources</h2>
+            <div class="feature-cards">
+                <div class="feture-card">
+                    <img src="path/to/feature1.png" alt="Feature 1">
+                    <h3>Feature 1</h3>
+                    <p>Description of feature 1.</p>
+                </div>
+                <div class="feture-card">
+                    <img src="path/to/feature2.png" alt="Feature 2">
+                    <h3>Feature 2</h3>
+                    <p>Description of feature 2.</p>
+                </div>
+                <div class="feture-card">
+                    <img src="path/to/feature3.png" alt="Feature 3">
+                    <h3>Feature 3</h3>
+                    <p>Description of feature 3.</p>
+                </div>
+                <div class="feture-card">
+                    <img src="from id of the blog /use of db and js" alt="Feature 4">
+                    <h3>Feature 4</h3>
+                    <p>Description of feature 4.</p>
+                </div>
+            </div>
+        </section>
+        <!--------------Top-Useful-blog----------------->
+        <section class="top-blogs">
+            <h2>Top Useful Blogs</h2>
+            <div class="blog-cards">
+                <div class="blog-card">
+                    <img src="path/to/blog1.jpg" alt="Blog 1">
+                    <img src="path/to/blog1-icon.png" alt="Blog 1 Icon" class="blog-icon">
+                    <h3>Blog Title 1</h3>
+                    <p>Short description of blog 1.</p>
+                    <a href="{% url 'blog_detail' blog_id=1 %}" class="btn">Read More</a>
+                </div>
+                <div class="blog-card">
+                    <img src="path/to/blog2.jpg" alt="Blog 2">
+                    <img src="path/to/blog2-icon.png" alt="Blog 2 Icon" class="blog-icon">
+                    <h3>Blog Title 2</h3>
+                    <p>Short description of blog 2.</p>
+                    <a href="{% url 'blog_detail' blog_id=2 %}" class="btn">Read More</a>
+                </div>
+                <div class="blog-card">
+                    <img src="path/to/blog3.jpg" alt="Blog 3">
+                    <img src="path/to/blog3-icon.png" alt="Blog 3 Icon" class="blog-icon">
+                    <h3>Blog Title 3</h3>
+                    <p>Short description of blog 3.</p>
+                    <a href="{% url 'blog_detail' blog_id=3 %}" class="btn">Read More</a>
+                </div>
+            </div>
+    </main>
+    <footer></footer>
+</body>
+
+</html>
