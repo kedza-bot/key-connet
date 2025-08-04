@@ -31,7 +31,7 @@
                         Your browser does not support the video tag.
                     </video>
                     <div class="hero-text">
-                        <h1>Welcome to Key Connect</h1>
+                        <h1>Welcome to Key Connect You can learn</h1>
                         <p>Your gateway to secure connections.</p>
                         <button><a href="{% url 'login' %}" class="btn">Get Started</a></button>
                     </div>
@@ -42,7 +42,7 @@
                         Your browser does not support the video tag.
                     </video>
                     <div class="hero-text">
-                        <h1>Connect with Confidence</h1>
+                        <h1>Connect with Confidence and you can grow</h1>
                         <p>Join our community today.</p>
                         <button><a href="{% url 'register' %}" class="btn">Sign Up</a></button>
                     </div>
@@ -53,7 +53,7 @@
                         Your browser does not support the video tag.
                     </video>
                     <div class="hero-text">
-                        <h1>Post your story</h1>
+                        <h1>Post your story you can inspire</h1>
                         <p>Inspire Africa with jouney , Every story change a life</p>
                         <button><a href="{% url 'Blog' %}" class="btn">Learn More</a></button>
                     </div>
@@ -134,8 +134,80 @@
                 </div>
             </div>
         </section>
+        <!-------****testimonials*************----------->
+        <!-------------****i  this will be a model of its own for (icons and the testomony message )the below is just a place holder-->
+        <section class="testimonials">
+            <h2>What Our Users Say</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <img src="path/to/user1.jpg" alt="User 1">
+                    <p>"Key Connect has transformed the way I connect with others!"</p>
+                    <h4>- User 1</h4>
+                </div>
+                <div class="testimonial-card">
+                    <img src="path/to/user2.jpg" alt="User 2">
+                    <p>"A fantastic platform for building secure connections."</p>
+                    <h4>- User 2</h4>
+                </div>
+                <div class="testimonial-card">
+                    <img src="path/to/user3.jpg" alt="User 3">
+                    <p>"I love the community and the features offered by Key Connect."</p>
+                    <h4>- User 3</h4>
+                </div>
+                <div class="testimonial-card">
+                    <img src="path/to/user4.jpg" alt="User 4">
+                    <p>"The best platform for secure and reliable connections."</p>
+                    <h4>- User 4</h4>
+                </div>
+                <div class="testimonial-card">
+                    <img src="path/to/user5.jpg" alt="User 5">
+                    <p>"Key Connect has made my online interactions much safer."</p>
+                    <h4>- User 5</h4>
+                </div>
+            </div>
+        </section>
+        <!-- Call to Action Section -->
+        <section class="call-to-action">
+            <div class="cta-content">
+                <h2>Join Key Connect Today!</h2>
+                <p>Experience the best in secure connections and community engagement.</p>
+                <button><a href="{% url 'register' %}" class="btn">Sign Up Now</a></button>
+            </div>
+            <div class="cta-image">
+                <img src="path/to/cta-image.jpg" alt="Call to Action Image">
+            </div>
+        </section>
     </main>
-    <footer></footer>
+    <footer>
+        <address>
+            <p>&copy; 2023 Key Connect. All rights reserved.</p>
+            <p>Contact us: <a href="mailto:kedzangwenya@gmail.com">Kedza Ngwenya</a></p>
+            <p>Follow us on:
+                <a href="https://www.facebook.com/keyconnect">Facebook</a>,
+                <a href="https://www.twitter.com/keyconnect">Twitter</a>,
+                <a href="https://www.instagram.com/keyconnect">Instagram</a>
+            </p>
+        </address>
+        <nav>
+            <ul>
+                <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                <li><a href="{% url 'terms_of_service' %}">Terms of Service</a></li>
+                <li><a href="{% url 'help' %}">Help</a></li>
+            </ul>
+        </nav>
+        <div class="footer-logo">
+            <img src="logo.png" alt="Key Connect Logo">
+        </div>
+        <div class="featurs">
+            <h3>Features</h3>
+            <ul>
+                <li><a href="{% url 'feature1' %}">free courses</a></li>
+                <li><a href="{% url 'feature2' %}">blogs</a></li>
+                <li><a href="{% url 'feature3' %}">Feature 3</a></li>
+                <li><a href="{% url 'feature4' %}">Feature 4</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 
 </html>
