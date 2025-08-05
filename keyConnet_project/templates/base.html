@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <title>{% block title %}Key Connect{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="{% static 'logo.png' %}" alt="Logo" class="logo">
+            <ul>
+                {% if user.is_authenticated %}
+                <li>Hello, {{ user.username }}</li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="{% url 'blog_create' %}">New Blog</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+                <li><a href="{% url 'home' %}">Home</a></li>
+                {% comment %}
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'blog' %}">Blog</a></li>
+                {% endcomment %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <address>
+            <p>&copy; 2025 Key Connect. All rights reserved.</p>
+            <p>Contact us: <a href="mailto:kedzangwenya@gmail.com">Kedza Ngwenya</a></p>
+            <p>Follow us on:
+                <a href="https://www.facebook.com/keyconnect">Facebook</a>,
+                <a href="https://www.twitter.com/keyconnect">Twitter</a>,
+                <a href="https://www.instagram.com/keyconnect">Instagram</a>
+            </p>
+        </address>
+        <nav>
+            <ul>
+                {% comment %}
+                <li><a href="% url 'privacy_policy">Privacy Policy</a></li>
+                <li><a href="{% url 'terms_of_service' %}">Terms of Service</a></li>
+                <li><a href="{% url 'help' %}">Help</a></li>
+                {% endcomment %}
+            </ul>
+        </nav>
+        <div class="footer-logo">
+            <img src="{% static 'logo.png' %}" alt="Key Connect Logo">
+        </div>
+        <div class="featurs">
+            <h3>Features</h3>
+            <ul>
+                {% comment %}
+                <li><a href="{% url 'feature1' %}">Free Courses</a></li>
+                <li><a href="{% url 'feature2' %}">Blogs</a></li>
+                <li><a href="{% url 'feature3' %}">Feature 3</a></li>
+                <li><a href="{% url 'feature4' %}">Feature 4</a></li>
+                {% endcomment %}
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

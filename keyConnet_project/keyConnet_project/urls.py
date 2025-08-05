@@ -22,4 +22,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_view, name='home'),  # Home view
     path('login/', views.login_view, name='login'),  # Login view
+    path('logout/', views.logout, name='logout'),  # Logout view
+    path('profile/<int:user_id>/', views.profile_view, name='profile'),  # Profile view
+    path('profile/edit/', views.edit_profile_view, name='edit_profile'),  # Edit profile view
+    path('base/', views.home_view, name='base'),  # Base view
+    path('register/', views.register_view, name='register'),  # Register view
+    path('blog/', views.blog_view, name='Blog'),  # Blog view
+    path("blog/<int:blog_id>/", views.blog_detail_view, name="blog_detail"), # Blog detail view
 ]
