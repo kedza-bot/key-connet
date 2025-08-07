@@ -1,6 +1,17 @@
 {% extends "base.html" %}
-{% block title %}Blog | Key Connect{% endblock %}
+{% block title %}Blogs{% endblock %}
 {% block content %}
-<h1>Our Blog</h1>
-<p>Welcome to the Key Connect Blog page!</p>
+<h1>All Blogs</h1>
+<ul>
+    {% for blog in blogs %}
+    <li>
+        <a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a>
+        — {{ blog.author.username }} · {{ blog.created_at|date:"Y-m-d H:i" }}
+    </li>
+    {% empty %}
+    <li>No blogs found.</li>
+    {% endfor %}
+</ul>
 {% endblock %}
+
+

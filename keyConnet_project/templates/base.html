@@ -4,30 +4,38 @@
     {% load static %}
     <meta charset="UTF-8" />
     <title>{% block title %}Key Connect{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'keyConnectapp/style.css' %}">
 </head>
 <body>
-    <header>
-        <nav>
-            <img src="{% static 'logo.png' %}" alt="Logo" class="logo">
-            <ul>
-                {% if user.is_authenticated %}
-                <li>Hello, {{ user.username }}</li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
-                <li><a href="{% url 'blog_create' %}">New Blog</a></li>
-                {% else %}
+    <header class="main-header">
+    <nav class="navbar">
+        <img src="{% static 'logo.png' %}" alt="Logo" class="logo">
+
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'blog' %}">Blog</a></li>
+
+            {% if user.is_authenticated %}
+                <li class="profile-dropdown">
+                    {% if user.profile.profile_pic %}
+                        <img src="{{ user.profile.profile_pic.url }}" alt="Profile Picture" class="nav-profile-pic">
+                    {% else %}
+                        <img src="{% static 'keyConnectapp/default.jpg' %}" alt="Dp" class="nav-profile-pic">
+                    {% endif %}
+
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'blog_create' %}">New Blog</a></li>
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+            {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li>
                 <li><a href="{% url 'register' %}">Register</a></li>
-                {% endif %}
-                <li><a href="{% url 'home' %}">Home</a></li>
-                {% comment %}
-                <li><a href="{% url 'about' %}">About</a></li>
-                <li><a href="{% url 'contact' %}">Contact</a></li>
-                <li><a href="{% url 'blog' %}">Blog</a></li>
-                {% endcomment %}
-            </ul>
-        </nav>
-    </header>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+
 
     <main>
         {% block content %}{% endblock %}

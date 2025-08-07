@@ -1,36 +1,3 @@
-# from django.shortcuts import render
-# from django.contrib.auth import authenticate, login
-# from django.shortcuts import redirect
-
-# from keyConnectapp.forms import LoginForm
-
-# # Create your views here.
-# def login_view(request):
-#     form=LoginForm(request.POST or None)
-#     if request.method == 'POST':
-#         username = form
-#         password = request.POST.get('password')
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('home')  # Replace 'home' with your home page URL name
-#         else:
-#             return render(request, 'login.html', {'error': 'Invalid credentials'})
-#     return render(request, 'keyConnectapp/login.html', {"form": form})  # Replace 'login.html' with your actual login template
-
-# def home_view(request):
-#     return render(request, 'keyConnectapp/index.html')  # Replace 'home.html' with your actual home page template
-
-# #create a register view for sing-ups
-# def register_view(request):
-#     return render(request, "keyConnectapp/register.html")
-# # This view will handle user registration logic in the future
-
-# from django.shortcuts import render
-
-# def blog_view(request):
-#     return render(request, "keyConnectapp/blog.html")
-
 
 # keyConnectapp/views.py
 from django.contrib import messages
@@ -38,6 +5,8 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
+
+from .models import Profile, Blog
 
 from .forms import RegisterForm, LoginForm, BlogForm
 from .models import Profile, Blog
@@ -101,3 +70,19 @@ def blog_create_view(request):
 def blog_detail_view(request, blog_id):
     blog = get_object_or_404(Blog, id=blog_id)
     return render(request, "keyConnectapp/blog_detail.html", {"blog": blog})
+
+def profile_view(request, user_id):
+    user_obj = get_object_or_404(User, id=user_id)
+    profile = Profile.objects.filter(user=user_obj).first()
+    blogs = getattr(user_obj, "blogs", None)
+    blogs = blogs.all()[:6] if blogs else []  # latest 6 if Blog.related_name="blogs"
+    ctx = {
+        "profile_user": user_obj,
+        "profile": profile,
+        "blogs": blogs,
+    }
+    return render(request, "keyConnectapp/profile.html", ctx)
+
+def blog_view(request):
+    return render(request, 'keyConnectapp/blog.html')  # Adjust this to your template
+

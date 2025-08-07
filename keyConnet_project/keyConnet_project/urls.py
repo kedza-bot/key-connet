@@ -14,8 +14,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+from django.contrib import admin # type: ignore
+from django.urls import path # type: ignore
 from keyConnectapp import views  # Import views from keyConnectapp
 
 urlpatterns = [
@@ -24,9 +24,29 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),  # Login view
     path('logout/', views.logout, name='logout'),  # Logout view
     path('profile/<int:user_id>/', views.profile_view, name='profile'),  # Profile view
-    path('profile/edit/', views.edit_profile_view, name='edit_profile'),  # Edit profile view
+    # path('profile/edit/', views.edit_profile_view, name='edit_profile'),  # Edit profile view
     path('base/', views.home_view, name='base'),  # Base view
     path('register/', views.register_view, name='register'),  # Register view
-    path('blog/', views.blog_view, name='Blog'),  # Blog view
-    path("blog/<int:blog_id>/", views.blog_detail_view, name="blog_detail"), # Blog detail view
+    
+    # Blog URLs
+    path('blog/', views.blog_view, name='blog'),                # ← list page
+    path('blog/new/', views.blog_create_view, name='blog_create'),
+    path('blog/<int:blog_id>/', views.blog_detail_view, name='blog_detail'),
 ]
+
+
+
+#css 
+from django.conf import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# This will serve media files during development

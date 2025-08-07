@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ profile_user.username }} | Profile{% endblock %}
+{% block content %}
+<h2>{{ profile_user.username }}'s Profile</h2>
+
+{% if profile and profile.avatar %}
+  <img src="{{ profile.avatar.url }}" alt="{{ profile_user.username }} avatar">
+{% endif %}
+
+<p><strong>Username:</strong> {{ profile_user.username }}</p>
+<p><strong>Email:</strong> {{ profile_user.email }}</p>
+{% if profile and profile.display_name %}<p><strong>Display name:</strong> {{ profile.display_name }}</p>{% endif %}
+{% if profile and profile.bio %}<p>{{ profile.bio }}</p>{% endif %}
+
+<h3>Recent Blogs</h3>
+{% if blogs %}
+  <ul>
+  {% for b in blogs %}
+    <li><a href="{% url 'blog_detail' b.id %}">{{ b.title }}</a></li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No blogs yet.</p>
+{% endif %}
+{% endblock %}
