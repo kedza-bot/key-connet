@@ -1,25 +1,25 @@
 {% extends "base.html" %}
-{% block title %}{{ profile_user.username }} | Profile{% endblock %}
+{% load static %}
+
+{% block title %}{{ profile_user.username }}'s Profile{% endblock %}
+
 {% block content %}
-<h2>{{ profile_user.username }}'s Profile</h2>
+<h2 class="profile-page__title">{{ profile_user.username }}'s Profile</h2>
 
-{% if profile and profile.avatar %}
-  <img src="{{ profile.avatar.url }}" alt="{{ profile_user.username }} avatar">
-{% endif %}
-
-<p><strong>Username:</strong> {{ profile_user.username }}</p>
-<p><strong>Email:</strong> {{ profile_user.email }}</p>
-{% if profile and profile.display_name %}<p><strong>Display name:</strong> {{ profile.display_name }}</p>{% endif %}
-{% if profile and profile.bio %}<p>{{ profile.bio }}</p>{% endif %}
-
-<h3>Recent Blogs</h3>
-{% if blogs %}
-  <ul>
-  {% for b in blogs %}
-    <li><a href="{% url 'blog_detail' b.id %}">{{ b.title }}</a></li>
-  {% endfor %}
-  </ul>
-{% else %}
-  <p>No blogs yet.</p>
-{% endif %}
+<div class="profile-page__info">
+    {% if profile and profile.avatar %}
+        <img src="{{ profile.avatar.url }}" alt="{{ profile.display_name }}" class="profile-page__avatar" />
+    {% else %}
+        <img src="{% static 'images/default_avatar.png' %}" alt="Default avatar" class="profile-page__avatar" />
+    {% endif %}
+    
+    <h3 class="profile-page__display-name">{{ profile.display_name|default:profile_user.username }}</h3>
+    <p class="profile-page__bio"><strong>Bio:</strong> {{ profile.bio|linebreaksbr|default:"No bio yet." }}</p>
+    
+    {% if profile_user == request.user %}
+        <a href="{% url 'edit_profile' %}" class="profile-page__edit-btn">Edit Profile</a>
+    {% endif %}
+</div>
 {% endblock %}
+
+

@@ -1,11 +1,18 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
+
 {% block content %}
-<h2>Sign In</h2>
-<form method="post" action="{% url 'login' %}">
+<section class="login-section">
+  <h2 class="login-section__title">Sign In</h2>
+
+  <form method="post" action="{% url 'login' %}" class="login-section__form">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Sign in</button>
-</form>
-<p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+    <button type="submit" class="login-section__submit-btn">Sign in</button>
+  </form>
+
+  <div class="login-section__register-link">
+    Don't have an account? <a href="{% url 'register' %}" class="login-section__register-anchor">Register here</a>
+  </div>
+</section>
 {% endblock %}

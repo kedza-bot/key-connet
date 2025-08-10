@@ -1,10 +1,19 @@
 {% extends "base.html" %}
-{% block title %}New Blog{% endblock %}
+{% block title %}Register{% endblock %}
 {% block content %}
-<h2>Create Blog</h2>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Publish</button>
-</form>
+
+<h2 class="register-heading">Create Your blog</h2>
+
+<div class="register-wrapper">
+  <form method="post" enctype="multipart/form-data" class="register-form">
+      {% csrf_token %}
+      <div class="register-fields">
+        {{ form.as_p }}
+      </div>
+      <button type="submit" class="register-button">Publish</button>
+  </form>
+</div>
+
 {% endblock %}
+
+

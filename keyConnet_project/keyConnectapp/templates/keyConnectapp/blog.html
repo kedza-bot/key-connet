@@ -1,17 +1,22 @@
 {% extends "base.html" %}
 {% block title %}Blogs{% endblock %}
 {% block content %}
-<h1>All Blogs</h1>
-<ul>
+<h1 class="blog-head">All Blogs</h1>
+<ul class="blog-list">
+
+    {% if user.is_authenticated %}
+        <li class="blog-item"><a href="{% url 'create_blog' %}">Create New Blog</a></li>
+        <li class="blog-item"><a href="#">My Blogs</a></li>
+    {% endif %}
+
     {% for blog in blogs %}
-    <li>
-        <a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a>
-        — {{ blog.author.username }} · {{ blog.created_at|date:"Y-m-d H:i" }}
-    </li>
+        <li class="blog-item">
+            <a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a>
+            — {{ blog.author.username }} · {{ blog.created_at|date:"Y-m-d H:i" }}
+        </li>
     {% empty %}
-    <li>No blogs found.</li>
+        <li class="blog-item">No blogs available.</li>
     {% endfor %}
+
 </ul>
 {% endblock %}
-
-

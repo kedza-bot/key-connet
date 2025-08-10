@@ -10,9 +10,13 @@
         <div class="hero-container">
             <div class="hero-slides">
                 <div class="hero-item active">
-                    <video src="{% static 'videos/video1.mp4' %}" autoplay muted loop></video>
+                    <video controls autoplay muted loop>
+                        <source src="{% static 'keyConnectapp/images/bgvd1.mp4' %}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+
                     <div class="hero-text">
-                        <h1>Welcome to Key Connect,<br/>Connect with Confidence and you can grow</h1>
+                        <h1>Welcome to Key Connect,<br/>Where Developers, Designers, and Dreamers Connect.</h1>
                         <p>Join our community today.</p>
                         
                         <a href="{% url 'login' %}" class="btn">Get Started</a>
@@ -69,21 +73,41 @@
 
     <!--------------Top-Useful-blog----------------->
     <section class="top-blogs">
-        <h2>Top Useful Blogs</h2>
-        <div class="blog-cards">
-            {% for blog in user_blogs %}
+    <h2>Top Useful Blogs</h2>
+    <div class="blog-cards">
+        {% for blog in top_blogs %}
             <div class="blog-card">
-                <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
-                <img src="{{ blog.icon.url }}" alt="{{ blog.title }} Icon" class="blog-icon">
+                <!-- Blog Image -->
+                <img 
+                    src="{% if blog.image %}{{ blog.image.url }}{% else %}{% static 'images/default_blog.jpg' %}{% endif %}" 
+                    alt="{{ blog.title|default:'Default image' }}"
+                >
+
+                <!-- Blog Icon -->
+                <img 
+                    class="blog-icon" 
+                    src="{% if blog.icon %}{{ blog.icon.url }}{% else %}{% static 'images/default_icon.png' %}{% endif %}" 
+                    alt="{{ blog.title|default:'Default' }} Icon"
+                >
+
+                <!-- Blog Title -->
                 <h3>{{ blog.title }}</h3>
+
+                <!-- Blog Short Description -->
                 <p>{{ blog.short_description }}</p>
+
+                <!-- Blog Link -->
                 <a href="{% url 'blog_detail' blog.id %}" class="btn">Read More</a>
             </div>
-            {% empty %}
+        {% empty %}
             <p>No blogs available at the moment.</p>
-            {% endfor %}
-        </div>
-    </section>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+
 
     <!-------****testimonials*************----------->
     <section class="testimonials">
@@ -122,7 +146,7 @@
         <div class="cta-content">
             <h2>Join Key Connect Today!</h2>
             <p>Experience the best in secure connections and community engagement.</p>
-            <button><a href="{% url 'register' %}" class="btn">Sign Up Now</a></button>
+            <a href="{% url 'register' %}" class="btn">Sign Up Now</a>
         </div>
         <div class="cta-image">
             <img src="{% static 'images/cta-image.jpg' %}" alt="Call to Action Image">

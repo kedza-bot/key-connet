@@ -1,10 +1,23 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block title %}Register{% endblock %}
+
 {% block content %}
-<h2>Sign Up</h2>
-<form method="post">
+<h2 class="signup__title">Sign Up</h2>
+<form method="post" class="signup__form">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Create account</button>
+    <p class="signup__field">{{ form.username.label_tag }} {{ form.username }}</p>
+
+    <div class="signup__name-row">
+        <p class="signup__name-field">{{ form.first_name.label_tag }} {{ form.first_name }}</p>
+        <p class="signup__name-field">{{ form.last_name.label_tag }} {{ form.last_name }}</p>
+    </div>
+
+    <p class="signup__field">{{ form.email.label_tag }} {{ form.email }}</p>
+    <p class="signup__field">{{ form.password1.label_tag }} {{ form.password1 }}</p>
+    <p class="signup__field">{{ form.password2.label_tag }} {{ form.password2 }}</p>
+    <p class="signup__field">{{ form.personal_details.label_tag }} {{ form.personal_details }}</p>
+    <button type="submit" class="signup__submit-btn">Create account</button>
 </form>
 {% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<h2 class="edit-profile__title">Edit Profile</h2>
+
+<form method="post" enctype="multipart/form-data" class="edit-profile__form">
+    {% csrf_token %}
+    <div class="edit-profile__form-fields">
+        {{ form.as_p }}
+    </div>
+    <button type="submit" class="edit-profile__submit-btn">Save Changes</button>
+</form>
+
+<a href="{% url 'profile' request.user.id %}" class="edit-profile__back-link">Back to Profile</a>
+{% endblock %}

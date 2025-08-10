@@ -17,20 +17,29 @@ Including another URLconf
 from django.contrib import admin # type: ignore
 from django.urls import path # type: ignore
 from keyConnectapp import views  # Import views from keyConnectapp
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_view, name='home'),  # Home view
     path('login/', views.login_view, name='login'),  # Login view
-    path('logout/', views.logout, name='logout'),  # Logout view
+    path("logout/", views.logout_view, name="logout"),
     path('profile/<int:user_id>/', views.profile_view, name='profile'),  # Profile view
     # path('profile/edit/', views.edit_profile_view, name='edit_profile'),  # Edit profile view
     path('base/', views.home_view, name='base'),  # Base view
     path('register/', views.register_view, name='register'),  # Register view
     
+    
+    
+# Profile edit view
+    path('profile/<int:user_id>/', views.profile_view, name='profile'),
+    path('profile/edit/', views.edit_profile_view, name='edit_profile'),
+    
     # Blog URLs
     path('blog/', views.blog_view, name='blog'),                # ← list page
-    path('blog/new/', views.blog_create_view, name='blog_create'),
+    path('blog/new/', views.blog_create_view, name='create_blog'),
     path('blog/<int:blog_id>/', views.blog_detail_view, name='blog_detail'),
 ]
 

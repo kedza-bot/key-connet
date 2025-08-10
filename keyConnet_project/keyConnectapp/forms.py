@@ -1,55 +1,37 @@
-# from django import forms
-
-# from keyConnectapp.models import Login
-
-
-# class LoginForm(forms.ModelForm):
-#     username = forms.CharField(max_length=150, required=True, label='Username')
-#     password = forms.CharField(widget=forms.PasswordInput, required=True, label='Password')
-
-#     class Meta:
-#         model = Login
-#         fields = ('username', 'password')
-        
-#     def clean(self):
-#         cleaned_data = super().clean()
-#         username = cleaned_data.get("username")
-#         password = cleaned_data.get("password")
-
-#         if not username or not password:
-#             raise forms.ValidationError("Both fields are required.")
-        
-#         return cleaned_data
-
-# class RegisterForm(forms.ModelForm):
-#     first_name = forms.CharField(max_length=30, required=True, label='First Name')
-#     last_name = forms.CharField(max_length=30, required=True, label='Last Name')
-#     username = forms.CharField(max_length=150, required=True, label='Username')
-#     email = forms.EmailField(required=True, label='Email')
-#     password = forms.CharField(widget=forms.PasswordInput, required=True, label='Password')
-
-#     class Meta:
-#         model = Login  # Assuming you want to use the Login model for registration
-#         fields = ('first_name', 'last_name', 'username', 'email', 'password')
-
-# keyConnectapp/forms.py
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Blog
 
 class RegisterForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30, required=True, help_text='Required')
+    last_name = forms.CharField(max_length=30, required=True, help_text='Required')
+    personal_details = forms.CharField(
+        label="Personal Details",
+        widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'Tell us more about yourself'}),
+        required=False
+    )
     email = forms.EmailField(required=True)
 
     class Meta:
         model = User
-        fields = ("username", "email", "password1", "password2")
-
-class LoginForm(AuthenticationForm):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+        fields = ["username", "first_name", "last_name", "email", "password1", "password2", "personal_details"]
 
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ("title", "short_description", "image", "icon", "content")
+        fields = ["title", "short_description", "content", "image", "icon"]
+
+
+
+#profile edit form
+from django import forms
+from .models import Profile
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['display_name', 'avatar', 'bio']
+        widgets = {
+            'bio': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Tell us about yourself'}),
+        }

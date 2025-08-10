@@ -1,23 +1,29 @@
-
 # keyConnectapp/views.py
+
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
+
 
 from .models import Profile, Blog
+from .forms import RegisterForm, BlogForm
+from django.contrib.auth.forms import AuthenticationForm
 
-from .forms import RegisterForm, LoginForm, BlogForm
-from .models import Profile, Blog
+
 
 def register_view(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()  # password hashed automatically
-            # Create a profile
-            Profile.objects.create(user=user, display_name=user.username)
+            user = form.save()  # saves User model fields
+
+            # Save personal_details into Profile.bio
+            personal_details = form.cleaned_data.get("personal_details", "")
+            Profile.objects.create(user=user, display_name=user.username, bio=personal_details)
+
             login(request, user)
             messages.success(request, "Account created. Welcome!")
             return redirect("home")
@@ -25,33 +31,47 @@ def register_view(request):
         form = RegisterForm()
     return render(request, "keyConnectapp/register.html", {"form": form})
 
+
 def login_view(request):
     if request.method == "POST":
-        form = LoginForm(request, data=request.POST)
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
             messages.success(request, "Logged in successfully.")
             return redirect("home")
     else:
-        form = LoginForm(request)
+        form = AuthenticationForm(request)
     return render(request, "keyConnectapp/login.html", {"form": form})
+
+
 
 def logout_view(request):
     logout(request)
     messages.info(request, "You have been logged out.")
     return redirect("home")
 
+
+from django.shortcuts import render
+from .models import Profile, Blog
+
+from django.db.models import F
+
 def home_view(request):
     profile = None
-    user_blogs = None
+    top_blogs = Blog.objects.all().order_by('-views')[:6]  # top 6 blogs by views
+
     if request.user.is_authenticated:
         profile = Profile.objects.filter(user=request.user).first()
-        user_blogs = Blog.objects.filter(author=request.user)[:6]  # show latest 6
+
     return render(request, "keyConnectapp/index.html", {
         "profile": profile,
-        "user_blogs": user_blogs,
+        "top_blogs": top_blogs,
     })
+
+
+
+
 
 @login_required
 def blog_create_view(request):
@@ -67,9 +87,20 @@ def blog_create_view(request):
         form = BlogForm()
     return render(request, "keyConnectapp/blog_create.html", {"form": form})
 
+
+from django.db.models import F
+
 def blog_detail_view(request, blog_id):
     blog = get_object_or_404(Blog, id=blog_id)
+    # Increment views count
+    Blog.objects.filter(id=blog_id).update(views=F('views') + 1)
+    # Refresh blog instance to have updated views
+    blog.refresh_from_db()
     return render(request, "keyConnectapp/blog_detail.html", {"blog": blog})
+
+
+
+
 
 def profile_view(request, user_id):
     user_obj = get_object_or_404(User, id=user_id)
@@ -83,6 +114,41 @@ def profile_view(request, user_id):
     }
     return render(request, "keyConnectapp/profile.html", ctx)
 
+
+
 def blog_view(request):
-    return render(request, 'keyConnectapp/blog.html')  # Adjust this to your template
+    blogs = Blog.objects.all()  # Get all blogs for everyone to see
+    return render(request, 'keyConnectapp/blog.html', {'blogs': blogs})
+
+
+
+
+#profile edit view
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth.models import User
+from .models import Profile
+from .forms import ProfileForm
+
+def profile_view(request, user_id):
+    user_obj = get_object_or_404(User, id=user_id)
+    profile = Profile.objects.filter(user=user_obj).first()
+    return render(request, 'keyConnectapp/profile.html', {
+        'profile_user': user_obj,
+        'profile': profile,
+    })
+
+@login_required
+def edit_profile_view(request):
+    profile = getattr(request.user, 'profile', None)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully.')
+            return redirect('profile', user_id=request.user.id)
+    else:
+        form = ProfileForm(instance=profile)
+    return render(request, 'keyConnectapp/edit_profile.html', {'form': form})
 

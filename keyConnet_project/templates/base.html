@@ -2,39 +2,74 @@
 <html>
 <head>
     {% load static %}
+    
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Key Connect{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'keyConnectapp/style.css' %}">
 </head>
 <body>
     <header class="main-header">
-    <nav class="navbar">
-        <img src="{% static 'logo.png' %}" alt="Logo" class="logo">
-
-        <ul class="nav-links">
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'blog' %}">Blog</a></li>
-
-            {% if user.is_authenticated %}
+        <nav class="navbar">
+            <img class="logo" src="{% static 'keyConnectapp/images/logooo.svg' %}" alt="Logo" />
+    
+            <!-- Hamburger menu button -->
+            <div class="hamburger-menu" tabindex="0" aria-label="Toggle navigation menu" role="button"
+                aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+    
+            <!-- Desktop nav -->
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'blog' %}">Blog</a></li>
+    
+                {% if user.is_authenticated %}
                 <li class="profile-dropdown">
-                    {% if user.profile.profile_pic %}
-                        <img src="{{ user.profile.profile_pic.url }}" alt="Profile Picture" class="nav-profile-pic">
-                    {% else %}
-                        <img src="{% static 'keyConnectapp/default.jpg' %}" alt="Dp" class="nav-profile-pic">
-                    {% endif %}
-
+                    <img src="{% if nav_profile and nav_profile.avatar %}{{ nav_profile.avatar.url }}{% else %}{% static 'images/default_avatar.png' %}{% endif %}"
+                        alt="Profile" class="nav-profile-pic" />
+    
                     <ul class="dropdown-menu">
-                        <li><a href="{% url 'blog_create' %}">New Blog</a></li>
+                        <li><a href="{% url 'profile' user.id %}">View Profile</a></li>
+                        <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
                         <li><a href="{% url 'logout' %}">Logout</a></li>
                     </ul>
                 </li>
-            {% else %}
+                {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-</header>
+                <li><a href="{% url 'register' %}"><span class="sign-up">Register</span></a></li>
+                {% endif %}
+            </ul>
+    
+            <!-- Mobile dropdown -->
+            <nav class="mobile-dropdown" aria-hidden="true">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'blog' %}">Blog</a>
+    
+                {% if user.is_authenticated %}
+                <div class="mobile-profile">
+                    <button class="mobile-profile-btn">
+                        <img src="{% if nav_profile and nav_profile.avatar %}{{ nav_profile.avatar.url }}{% else %}{% static 'images/default_avatar.png' %}{% endif %}"
+                            alt="Profile" class="nav-profile-pic" />
+                        Profile
+                    </button>
+                    <div class="mobile-profile-dropdown">
+                        <a href="{% url 'profile' user.id %}">View Profile</a>
+                        <a href="{% url 'edit_profile' %}">Edit Profile</a>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </div>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+                {% endif %}
+            </nav>
+        </nav>
+    </header>
+
+
 
 
     <main>
@@ -42,38 +77,49 @@
     </main>
 
     <footer>
-        <address>
-            <p>&copy; 2025 Key Connect. All rights reserved.</p>
-            <p>Contact us: <a href="mailto:kedzangwenya@gmail.com">Kedza Ngwenya</a></p>
-            <p>Follow us on:
-                <a href="https://www.facebook.com/keyconnect">Facebook</a>,
-                <a href="https://www.twitter.com/keyconnect">Twitter</a>,
-                <a href="https://www.instagram.com/keyconnect">Instagram</a>
-            </p>
-        </address>
-        <nav>
-            <ul>
-                {% comment %}
-                <li><a href="% url 'privacy_policy">Privacy Policy</a></li>
-                <li><a href="{% url 'terms_of_service' %}">Terms of Service</a></li>
-                <li><a href="{% url 'help' %}">Help</a></li>
-                {% endcomment %}
-            </ul>
-        </nav>
-        <div class="footer-logo">
-            <img src="{% static 'logo.png' %}" alt="Key Connect Logo">
+        <div class="footer-container">
+    
+            <!-- LEFT: Address + Logo -->
+            <address class="footer-left">
+                <div class="footer-logo">
+                    <img class="logo" src="{% static 'keyConnectapp/images/KEY-CONNECT.svg' %}" alt="Logo">
+                </div>
+                <p>Contact us: <a href="mailto:kedzangwenya@gmail.com">Kedza Ngwenya</a></p>
+                <p>Follow us on:
+                    <a href="https://www.facebook.com/keyconnect">Facebook</a>,
+                    <a href="https://www.twitter.com/keyconnect">Twitter</a>,
+                    <a href="https://www.instagram.com/keyconnect">Instagram</a>
+                </p>
+            </address>
+    
+            <!-- RIGHT: Terms + Features -->
+            <div class="footer-right">
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Help</a></li>
+                    </ul>
+                </nav>
+    
+                <div class="feature">
+                    <h3>Features</h3>
+                    <ul>
+                        <li><a href="#">Free Courses</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Feature 3</a></li>
+                        <li><a href="#">Feature 4</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="featurs">
-            <h3>Features</h3>
-            <ul>
-                {% comment %}
-                <li><a href="{% url 'feature1' %}">Free Courses</a></li>
-                <li><a href="{% url 'feature2' %}">Blogs</a></li>
-                <li><a href="{% url 'feature3' %}">Feature 3</a></li>
-                <li><a href="{% url 'feature4' %}">Feature 4</a></li>
-                {% endcomment %}
-            </ul>
+    
+        <!-- BOTTOM CENTER: Copyright -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 Key Connect. All rights reserved.</p>
         </div>
     </footer>
+
+<script src="{% static 'keyConnectapp/mobile-menu.js' %}"></script>
 </body>
 </html>
