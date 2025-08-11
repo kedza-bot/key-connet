@@ -6,13 +6,13 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
-
-
+from django.db.models import F
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Profile
+from .forms import ProfileForm
 from .models import Profile, Blog
 from .forms import RegisterForm, BlogForm
-from django.contrib.auth.forms import AuthenticationForm
-
-
+from .models import Profile, Blog
 
 def register_view(request):
     if request.method == "POST":
@@ -52,10 +52,7 @@ def logout_view(request):
     return redirect("home")
 
 
-from django.shortcuts import render
-from .models import Profile, Blog
 
-from django.db.models import F
 
 def home_view(request):
     profile = None
@@ -88,7 +85,7 @@ def blog_create_view(request):
     return render(request, "keyConnectapp/blog_create.html", {"form": form})
 
 
-from django.db.models import F
+
 
 def blog_detail_view(request, blog_id):
     blog = get_object_or_404(Blog, id=blog_id)
@@ -124,12 +121,7 @@ def blog_view(request):
 
 
 #profile edit view
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.contrib.auth.models import User
-from .models import Profile
-from .forms import ProfileForm
+
 
 def profile_view(request, user_id):
     user_obj = get_object_or_404(User, id=user_id)
@@ -152,3 +144,7 @@ def edit_profile_view(request):
         form = ProfileForm(instance=profile)
     return render(request, 'keyConnectapp/edit_profile.html', {'form': form})
 
+
+
+def about_us(request):
+    return render(request, "keyConnectapp/about_us.html")

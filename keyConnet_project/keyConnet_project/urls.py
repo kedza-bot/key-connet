@@ -31,7 +31,7 @@ urlpatterns = [
     path('base/', views.home_view, name='base'),  # Base view
     path('register/', views.register_view, name='register'),  # Register view
     
-    
+    path('about/', views.about_us, name='about_us'),  # About Us view
     
 # Profile edit view
     path('profile/<int:user_id>/', views.profile_view, name='profile'),
