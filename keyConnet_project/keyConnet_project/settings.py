@@ -1,13 +1,13 @@
 from pathlib import Path
 import os
-import dj_database_url
+import dj_database_url  # This will allow easy switch to PostgreSQL later
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ========================
 # SECURITY
 # ========================
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')  # fallback for local dev
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
 
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
@@ -65,10 +65,12 @@ WSGI_APPLICATION = 'keyConnet_project.wsgi.application'
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if DATABASE_URL:
+    # Use PostgreSQL if DATABASE_URL is set
     DATABASES = {
         'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
     }
 else:
+    # Default to SQLite for local or testing
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
