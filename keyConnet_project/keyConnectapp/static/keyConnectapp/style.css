@@ -224,74 +224,143 @@ body{
 
 
 /*-------------------**cards**-----------------*/
-.features {
+:root{
+  --cards-visible: 3;    /* how many cards to show on wide screens */
+  --gap: 20px;          /* gap between cards */
+  --card-height: 320px; /* visual height of each card */
+}
+
+/* container */
+.features{
+  position: relative;
   padding: 40px 20px;
   background: whitesmoke;
   text-align: center;
 }
 
-.features h2 {
+/* heading */
+.features h2{
   font-size: 28px;
-  margin-bottom: 30px;
-  color: var(--rich-black);
+  margin-bottom: 18px;
+  color: var(--rich-black, #0b1a2b);
 }
 
-/* Scrollable container */
-.feature-cards {
+/* horizontal scroller */
+.feature-cards{
   display: flex;
-  gap: 20px;
+  gap: var(--gap);
   overflow-x: auto;
-  padding-bottom: 10px;
   scroll-behavior: smooth;
-  scrollbar-width: none; /* Firefox */
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  padding: 12px 48px;     /* leave room for arrows visually */
+  scrollbar-width: none;  /* firefox */
 }
+.feature-cards::-webkit-scrollbar{ display: none; }
 
-.feature-cards::-webkit-scrollbar {
-  display: none; /* Chrome */
-}
-
-/* Individual cards */
-.feture-card {
-  flex: 0 0 calc(33.333% - 20px); /* 3 cards visible */
-  background: var(--rich-black);
+/* individual card (KEEP class name .feture-card exactly as in your HTML) */
+/* calculation ensures exactly `--cards-visible` cards fit in the row */
+.feture-card{
+  flex: 0 0 calc((100% - (var(--cards-visible) - 1) * var(--gap)) / var(--cards-visible));
+  height: var(--card-height);
+  min-width: 180px;   /* prevents shrinking too far on very small screens */
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  min-width: 280px;
-  max-width: 300px;
-  height: 250px;
-  box-shadow: 0 0 12px #10182085;
+  box-shadow: 0 6px 18px rgba(16,24,32,0.12);
+  background: #111;   /* fallback if image missing */
+  scroll-snap-align: start;
 }
 
-.feture-card img {
+/* image fills the whole card */
+.feture-card img{
   width: 100%;
-  height: 150px;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.feture-card h3 {
-  margin: 10px 0 0;
+/* title sits over the bottom of the image */
+.feture-card h3{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 12px 14px;
   font-size: 18px;
-  color: var(--text-color2);
+  color: #fff;
+  z-index: 2;
+  /* subtle gradient to improve contrast with image */
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
 }
 
-.feture-card p {
-  margin: 10px;
-  font-size: 14px;
-  color: #666;
-  opacity: 0;
-  height: 0;
-  overflow: hidden;
-  transition: all 0.3s ease;
+/* description starts hidden and slides up on hover/focus */
+.feture-card p{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;                /* anchored to bottom */
+  margin: 0;
+  padding: 16px;
+  box-sizing: border-box;
+  color: #fff;
+  z-index: 3;               /* appears above the title when visible */
+  transform: translateY(100%);  /* off-screen */
+  transition: transform .36s cubic-bezier(.2,.9,.2,1);
+  background: linear-gradient(135deg, var(--rich-black2), var(--background-color2));
+  pointer-events: auto;
 }
 
-/* Show description on hover */
-.feture-card:hover p {
-  opacity: 1;
-  height: auto;
+/* slide up on hover or when any focusable child receives focus */
+.feture-card:hover p,
+.feture-card:focus-within p{
+  transform: translateY(0%);
+}
+
+/* links inside the description look good on the gradient */
+.feture-card p a{
+  color: #fff;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* scroll arrow buttons */
+.scroll-btn{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  cursor: pointer;
+  z-index: 30;
+  box-shadow: 0 8px 22px rgba(16,24,32,0.18);
+}
+
+/* left / right positions */
+.scroll-btn.left{ left: 12px; }
+.scroll-btn.right{ right: 12px; }
+
+/* subtle disabled look */
+.scroll-btn[disabled]{
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* responsive: on smaller screens reduce visible cards and card height */
+@media (max-width: 900px){
+  :root{ --cards-visible: 2; --card-height: 300px; }
+}
+@media (max-width: 600px){
+  :root{ --cards-visible: 1; --card-height: 240px; }
+  .scroll-btn{ display: none; } /* hide arrows on very small screens */
 }
 
 
@@ -300,6 +369,7 @@ body{
   padding: 40px 20px;
   background-color: #fff;
   text-align: center;
+  position: relative; /* for button positioning */
 }
 
 .testimonials h2 {
@@ -329,7 +399,48 @@ body{
   border-radius: 12px;
   padding: 20px;
   min-width: 280px;
-  max-width: 300
+  max-width: 300px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.testimonial-card img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.testimonial-card p {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+/* Scroll buttons */
+.testimonial-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  cursor: pointer;
+  z-index: 5;
+  border-radius: 50%;
+}
+
+.testimonial-btn.left {
+  left: 10px;
+}
+
+.testimonial-btn.right {
+  right: 10px;
+}
+
+.testimonial-btn:hover {
+  background: rgba(0,0,0,0.8);
 }
 
 
