@@ -53,9 +53,9 @@ body{
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 100px;
+    gap: 40px;
     margin: 0;
-    width: 50%;
+    width: 60%;
     padding: 0 5px 0 60px;
 }
 
@@ -1156,6 +1156,41 @@ address a:hover {
 .signup__submit-btn:hover {
   background-color: #e05c00;
 }
+/* Make name fields match the other form fields */
+.signup__name-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.signup__name-field label {
+  font-weight: 600;
+  color: #555;
+}
+
+.signup__name-field input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+  width: 100%;
+}
+
+.signup__name-field input:focus {
+  border-color: #ff6a00;
+  outline: none;
+}
+
+/* Responsive stacking */
+@media (max-width: 600px) {
+  .signup__name-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
 
 
 
