@@ -18,18 +18,37 @@ def register_view(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()  # saves User model fields
+            print("✅ FORM IS VALID — creating user now...")  # Debug
 
-            # Save personal_details into Profile.bio
+            # Save User instance
+            user = form.save()
             personal_details = form.cleaned_data.get("personal_details", "")
-            Profile.objects.create(user=user, display_name=user.username, bio=personal_details)
 
+            # Create linked profile
+            Profile.objects.create(
+                user=user,
+                display_name=user.username,
+                bio=personal_details
+            )
+
+            # Auto login user after registration
             login(request, user)
             messages.success(request, "Account created. Welcome!")
             return redirect("home")
+
+        else:
+            # Debug output to console
+            print("❌ FORM IS INVALID — errors below:")
+            for field, errors in form.errors.items():
+                print(f"   {field}: {', '.join(errors)}")
+            messages.error(request, "Please correct the errors below.")
+
     else:
         form = RegisterForm()
+
     return render(request, "keyConnectapp/register.html", {"form": form})
+
+
 
 
 def login_view(request):
@@ -96,9 +115,6 @@ def blog_detail_view(request, blog_id):
     return render(request, "keyConnectapp/blog_detail.html", {"blog": blog})
 
 
-
-
-
 def profile_view(request, user_id):
     user_obj = get_object_or_404(User, id=user_id)
     profile = Profile.objects.filter(user=user_obj).first()
@@ -122,14 +138,6 @@ def blog_view(request):
 
 #profile edit view
 
-
-def profile_view(request, user_id):
-    user_obj = get_object_or_404(User, id=user_id)
-    profile = Profile.objects.filter(user=user_obj).first()
-    return render(request, 'keyConnectapp/profile.html', {
-        'profile_user': user_obj,
-        'profile': profile,
-    })
 
 @login_required
 def edit_profile_view(request):

@@ -15,9 +15,49 @@
     </div>
 
     <p class="signup__field">{{ form.email.label_tag }} {{ form.email }}</p>
+
+    {% if form.errors %}
+    <div class="error-list" style="
+        color: #b30000;
+        background: #ffe6e6;
+        border: 1px solid #ff9999;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 0.5rem 0 1rem 0;
+        font-size: 0.95rem;
+    ">
+        <ul style="list-style: none; padding-left: 0; margin: 0;">
+        {% for field, errors in form.errors.items %}
+            <li><strong>{{ field|capfirst }}:</strong> {{ errors|join:", " }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
     <p class="signup__field">{{ form.password1.label_tag }} {{ form.password1 }}</p>
     <p class="signup__field">{{ form.password2.label_tag }} {{ form.password2 }}</p>
     <p class="signup__field">{{ form.personal_details.label_tag }} {{ form.personal_details }}</p>
+
     <button type="submit" class="signup__submit-btn">Create account</button>
 </form>
+
+<p class="signup__login-link" style="
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    text-align: center;
+    color: #f5f5f5;
+    margin-bottom: 50px;
+    font-weight: 500;
+">
+    Already have an account? 
+    <a href="{% url 'login' %}" style="
+        color: #e94e1b;
+        text-decoration: none;
+        font-weight: 500;
+    " 
+    onmouseover="this.style.textDecoration='underline';"
+    onmouseout="this.style.textDecoration='none';">
+        Log in
+    </a>
+</p>
 {% endblock %}
