@@ -41,3 +41,17 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             'bio': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Tell us about yourself'}),
         }
+
+from django import forms
+from .models import Question, Comment
+
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ['title', 'body']
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body']

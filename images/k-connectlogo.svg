@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="310.34799mm"
+   height="182.37938mm"
+   viewBox="0 0 310.34799 182.37938"
+   version="1.1"
+   id="svg8"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs2" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer2"
+     style="display:inline"
+     transform="translate(71.358259,-63.345559)">
+    <g
+       id="layer1"
+       style="display:inline">
+      <g
+         id="g1279"
+         transform="rotate(-1.2330459,102.57369,139.75556)">
+        <g
+           id="g236"
+           transform="matrix(4.4175605,0,0,4.4175605,-103.22454,-508.37793)"
+           style="stroke-width:0.226369">
+          <g
+             id="g235"
+             transform="matrix(0.20461842,0,0,0.20461842,24.396864,108.09337)"
+             style="fill:#ff6a00;fill-opacity:1;stroke-width:1.1063">
+            <path
+               style="opacity:1;fill:#ff6a00;fill-opacity:1;stroke:none;stroke-width:0.292707px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               d="m 94.994904,160.71732 c 0,0 4.708085,-12.54175 17.561896,-15.76446 0.71666,-0.17968 5.68974,1.91323 10.67647,5.69031 3.98675,3.01965 6.15697,9.89659 6.15697,9.89659 -13.95381,-4.12938 -17.11411,10.13123 -17.34264,9.22061 -3.45916,-13.78339 -17.052696,-9.04305 -17.052696,-9.04305 z"
+               id="path232" />
+            <path
+               style="opacity:1;fill:#ff6a00;fill-opacity:1;stroke:none;stroke-width:0.292707px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               d="m 129.29406,160.45805 c 0,0 12.38184,4.71861 15.52398,17.59235 0.1752,0.71777 -1.94883,5.67766 -5.75705,10.64064 -3.04459,3.96775 -9.93373,6.09608 -9.93373,6.09608 4.21669,-13.92767 -10.02508,-17.17846 -9.11305,-17.40129 13.80478,-3.37276 9.27985,-16.92778 9.27985,-16.92778 z"
+               id="path233" />
+            <path
+               style="opacity:1;fill:#ff6a00;fill-opacity:1;stroke:none;stroke-width:0.292707px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               d="m 129.35613,194.68017 c 0,0 -3.67396,11.80581 -16.42203,15.42422 -0.71076,0.20174 -5.74617,-1.73649 -10.84723,-5.35765 -4.078156,-2.89502 -6.719859,-9.97101 -6.719859,-9.97101 14.074759,3.69619 17.052839,-10.38587 17.309409,-9.48275 3.88347,13.66992 16.67971,9.38719 16.67971,9.38719 z"
+               id="path234" />
+            <path
+               style="opacity:1;fill:#ff6a00;fill-opacity:1;stroke:none;stroke-width:0.292707px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               d="m 95.498478,194.98421 c 0,0 -12.460239,-4.56311 -15.836611,-17.37742 -0.188247,-0.71444 1.844968,-5.71224 5.562066,-10.74383 2.971717,-4.02261 9.890722,-6.27302 9.890722,-6.27302 -3.96203,14.00226 10.266865,16.98959 9.359045,17.22901 -13.741001,3.62394 -8.975222,17.16526 -8.975222,17.16526 z"
+               id="path235" />
+          </g>
+          <text
+             xml:space="preserve"
+             style="font-size:8.46667px;line-height:1.25;font-family:sans-serif;stroke-width:0.0598935"
+             x="29.706575"
+             y="158.49467"
+             id="text235"
+             transform="rotate(1.2330455)"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Blippo Blk BT';-inkscape-font-specification:'Blippo Blk BT';stroke-width:0.0598935"
+               x="29.706575"
+               y="158.49467"
+               id="tspan235"><tspan
+                 style="fill:#ff6a00;fill-opacity:1"
+                 id="tspan242">K</tspan><tspan
+                 style="fill:#ffccaa;fill-opacity:1"
+                 id="tspan240">-</tspan><tspan
+                 style="fill:#ff6a00;fill-opacity:1"
+                 id="tspan241">Connect</tspan></tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

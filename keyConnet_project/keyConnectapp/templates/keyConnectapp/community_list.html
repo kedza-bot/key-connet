@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Community{% endblock %}
+
+{% block content %}
+<div class="community-container">
+    <h1 class="community-title">Community Questions</h1>
+
+    <!-- Search Bar -->
+    <form method="GET" class="community-search">
+        <input type="text" name="q" placeholder="Search questions..." value="{{ request.GET.q|default:'' }}">
+        <button type="submit" class="btn">Search</button>
+    </form>
+
+    <!-- Ask Question Button -->
+    {% if user.is_authenticated %}
+        <a href="{% url 'ask_question' %}" class="btn ask-btn">Ask a Question</a>
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a> to ask a question.</p>
+    {% endif %}
+
+    <ul class="question-list">
+        {% for question in questions %}
+            <li class="question-item">
+                <h3>
+                    <a href="{% url 'question_detail' question_id=question.id %}">{{ question.title }}</a>
+                </h3>
+                <p class="question-meta">
+                    Asked by <a href="{% url 'profile' user_id=question.author.id %}">{{ question.author.username }}</a>
+                    on {{ question.created_at|date:"M d, Y H:i" }}
+                </p>
+                <p class="question-body">{{ question.body|truncatewords:30 }}</p>
+            </li>
+        {% empty %}
+            <li>No questions yet. Be the first to ask!</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

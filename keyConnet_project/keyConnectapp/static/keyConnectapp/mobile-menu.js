@@ -14,14 +14,30 @@ document.addEventListener('DOMContentLoaded', () => {
       mobileDropdown.setAttribute('aria-hidden', expanded);
     });
   }
-
-  // Toggle mobile profile dropdown
-  if (mobileProfileBtn && mobileProfileDropdown) {
-    mobileProfileBtn.addEventListener('click', () => {
-      mobileProfileDropdown.classList.toggle('active');
-    });
-  }
 });
+
+
+// Toggle mobile profile dropdown
+document.addEventListener("DOMContentLoaded", function () {
+    const profileBtn = document.querySelector(".mobile-profile-btn");
+    const profileHeader = document.querySelector(".mobile-profile-header");
+
+    if (profileBtn) {
+        profileBtn.addEventListener("click", function (e) {
+            e.stopPropagation(); // Prevent click from bubbling
+            profileHeader.classList.toggle("active");
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener("click", function (e) {
+            if (!profileHeader.contains(e.target)) {
+                profileHeader.classList.remove("active");
+            }
+        });
+    }
+});
+
+
 
 
 // card function for the cards  

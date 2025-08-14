@@ -12,7 +12,7 @@
     <meta name="social" content="Key Connect, Kedza Ngwenya, Africa, developers, technology">
     <meta property="og:title" content="Key Connect - Connect with Developers">
     <meta property="og:description" content="A platform for developers to connect, learn, and share knowledge.">
-    <meta property="og:image" content="{% static 'keyConnectapp/images/social_image.svg' %}">
+    <meta property="og:image" content="{% static 'keyConnectapp/images/k-connectsidelogo.svg' %}">
     <meta property="og:url" content="https://keyconnect.example.com">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
@@ -22,7 +22,7 @@
     <meta name="twitter:site" content="@@MrAfrikar">
     <meta name="twitter:creator" content="@MrAfrikar">
     <meta name="theme-color" content="#00bcd4">
-    <link rel="icon" href="{% static 'keyConnectapp/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'keyConnectapp/images/k-connectsidelogo.svg' %}" type="image/x-icon">
 
 
 
@@ -31,64 +31,66 @@
 </head>
 <body>
     <header class="main-header">
-        <nav class="navbar">
-            <img class="logo" src="{% static 'keyConnectapp/images/logooo.svg' %}" alt="Logo" />
-    
-            <!-- Hamburger menu button -->
-            <div class="hamburger-menu" tabindex="0" aria-label="Toggle navigation menu" role="button"
-                aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
+    <nav class="navbar">
+        <img class="logo" src="{% static 'keyConnectapp/images/k-connectsidelogo.svg' %}" alt="Logo" />
+
+        {% if user.is_authenticated %}
+        <!-- Mobile profile picture as button -->
+        <div class="mobile-profile-header">
+            <img src="{% if nav_profile and nav_profile.avatar %}{{ nav_profile.avatar.url }}{% else %}{% static 'keyConnectapp/images/default_avatar.png' %}{% endif %}"
+                alt="Profile" class="nav-profile-pic mobile-profile-btn" />
+
+            <div class="mobile-profile-dropdown">
+                <a href="{% url 'profile' user.id %}">View Profile</a>
+                <a href="{% url 'edit_profile' %}">Edit Profile</a>
+                <a href="{% url 'logout' %}">Logout</a>
             </div>
-    
-            <!-- Desktop nav -->
-            <ul class="nav-links">
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'blog' %}">Blog</a></li>
-                <li><a href="{% url 'about_us' %}">About Us</a></li>
-                {% if user.is_authenticated %}
-                <li class="profile-dropdown">
-                    <img src="{% if nav_profile and nav_profile.avatar %}{{ nav_profile.avatar.url }}{% else %}{% static 'images/default_avatar.png' %}{% endif %}"
-                        alt="Profile" class="nav-profile-pic" />
-    
-                    <ul class="dropdown-menu">
-                        <li><a href="{% url 'profile' user.id %}">View Profile</a></li>
-                        <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
-                        <li><a href="{% url 'logout' %}">Logout</a></li>
-                    </ul>
-                </li>
-                {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}"><span class="sign-up">Register</span></a></li>
-                {% endif %}
-            </ul>
-    
-            <!-- Mobile dropdown -->
-            <nav class="mobile-dropdown" aria-hidden="true">
-                <a href="{% url 'home' %}">Home</a>
-                <a href="{% url 'blog' %}">Blog</a>
-    
-                {% if user.is_authenticated %}
-                <div class="mobile-profile">
-                    <button class="mobile-profile-btn">
-                        <img src="{% if nav_profile and nav_profile.avatar %}{{ nav_profile.avatar.url }}{% else %}{% static 'images/default_avatar.png' %}{% endif %}"
-                            alt="Profile" class="nav-profile-pic" />
-                        Profile
-                    </button>
-                    <div class="mobile-profile-dropdown">
-                        <a href="{% url 'profile' user.id %}">View Profile</a>
-                        <a href="{% url 'edit_profile' %}">Edit Profile</a>
-                        <a href="{% url 'logout' %}">Logout</a>
-                    </div>
-                </div>
-                {% else %}
-                <a href="{% url 'login' %}">Login</a>
-                <a href="{% url 'register' %}">Register</a>
-                {% endif %}
-            </nav>
+        </div>
+        {% endif %}
+
+        <!-- Hamburger menu button -->
+        <div class="hamburger-menu" tabindex="0" aria-label="Toggle navigation menu" role="button"
+            aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Desktop nav -->
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'blog' %}">Blog</a></li>
+            <li><a href="{% url 'about_us' %}">About Us</a></li>
+            <li><a href="{% url 'community_list' %}">Community</a></li>
+            {% if user.is_authenticated %}
+            <li class="profile-dropdown">
+                <img src="{% if nav_profile and nav_profile.avatar %}{{ nav_profile.avatar.url }}{% else %}{% static 'keyConnectapp/images/default_avatar.png' %}{% endif %}"
+                    alt="Profile" class="nav-profile-pic" />
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'profile' user.id %}">View Profile</a></li>
+                    <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            </li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}"><span class="sign-up">Register</span></a></li>
+            {% endif %}
+        </ul>
+
+        <!-- Mobile dropdown -->
+        <nav class="mobile-dropdown" aria-hidden="true">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'blog' %}">Blog</a>
+            {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+            {% endif %}
         </nav>
-    </header>
+    </nav>
+</header>
+
+
 
 
 
@@ -103,7 +105,7 @@
             <!-- LEFT: Address + Logo -->
             <address class="footer-left">
                 <div class="footer-logo">
-                    <img class="logo" src="{% static 'keyConnectapp/images/KEY-CONNECT.svg' %}" alt="Logo">
+                    <img class="logo" src="{% static 'keyConnectapp/images/k-connectsidelogo.svg' %}" alt="Logo">
                 </div>
                 <p>Contact us: <a href="mailto:kedzangwenya@gmail.com">Kedza Ngwenya</a></p>
                 <p>Follow us on:
