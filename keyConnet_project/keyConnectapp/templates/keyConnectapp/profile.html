@@ -10,7 +10,7 @@
     {% if profile and profile.avatar %}
         <img src="{{ profile.avatar.url }}" alt="{{ profile.display_name }}" class="profile-page__avatar" />
     {% else %}
-        <img src="{% static 'images/default_avatar.png' %}" alt="Default avatar" class="profile-page__avatar" />
+        <img src="{% static 'keyConnectapp/images/default_avatar.png' %}" alt="Default avatar" class="profile-page__avatar" />
     {% endif %}
     
     <h3 class="profile-page__display-name">{{ profile.display_name|default:profile_user.username }}</h3>
