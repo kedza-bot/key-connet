@@ -82,6 +82,7 @@
         <nav class="mobile-dropdown" aria-hidden="true">
             <a href="{% url 'home' %}">Home</a>
             <a href="{% url 'blog' %}">Blog</a>
+            <a href="{% url 'community_list' %}">Community</a>
             {% if not user.is_authenticated %}
             <a href="{% url 'login' %}">Login</a>
             <a href="{% url 'register' %}">Register</a>
